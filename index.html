@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexandre Gabbia — Financial Crime &amp; AML Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5F0;
+    --paper-dim:#EFEBE2;
+    --ink:#1C2024;
+    --ink-soft:#3A3F45;
+    --slate:#7C8594;
+    --steel:#35506B;
+    --steel-deep:#26384A;
+    --amber:#C2791F;
+    --line:#D8D2C4;
+    --max:760px;
+    --glow-amber:rgba(194,121,31,0.38);
+    --glow-steel:rgba(97,160,214,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes glowPulse{
+    0%,100%{box-shadow:0 0 0 rgba(194,121,31,0);}
+    50%{box-shadow:0 0 22px var(--glow-amber);}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    margin:0;
+    color:var(--ink);
+  }
+  .ref{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.02em;
+    color:var(--slate);
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+
+  /* ---- lang switch ---- */
+  .langbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(247,245,240,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .langbar-inner{
+    max-width:var(--max); margin:0 auto; padding:14px 28px;
+    display:flex; justify-content:flex-end; gap:6px;
+  }
+  .langbtn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    background:none; border:1px solid var(--line);
+    color:var(--slate); padding:6px 12px; cursor:pointer;
+    border-radius:3px;
+  }
+  .langbtn.active{
+    background:var(--steel); color:var(--paper); border-color:var(--steel);
+    box-shadow:0 0 10px var(--glow-steel);
+  }
+  .langbtn{transition:border-color .2s ease, color .2s ease;}
+  .langbtn:hover{border-color:var(--steel); color:var(--ink);}
+
+  /* ---- hero ---- */
+  .hero{
+    background:var(--steel-deep);
+    color:var(--paper);
+    padding:72px 0 64px;
+  }
+  .hero .ref{color:#9FB2C2; opacity:0; animation:riseIn .6s ease .05s forwards;}
+  .hero h1{
+    color:var(--paper);
+    font-size:clamp(32px,5vw,46px);
+    line-height:1.12;
+    margin-top:10px;
+    opacity:0; animation:riseIn .6s ease .15s forwards;
+  }
+  .hero .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.04em;
+    color:#C9A36A;
+    margin-top:18px;
+    opacity:0; animation:riseIn .6s ease .28s forwards;
+  }
+  .hero p.lead{
+    max-width:58ch;
+    color:#D7DEE4;
+    margin-top:18px;
+    font-size:17px;
+    opacity:0; animation:riseIn .6s ease .4s forwards;
+  }
+  .hero .meta{
+    margin-top:32px;
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:#9FB2C2;
+    opacity:0; animation:riseIn .6s ease .52s forwards;
+  }
+  .hero .meta a{text-decoration:underline; text-decoration-color:#52677D; transition:color .2s ease, text-decoration-color .2s ease;}
+  .hero .meta a:hover{color:#C9A36A; text-decoration-color:#C9A36A;}
+
+  /* ---- sections ---- */
+  section{padding:56px 0;}
+  section.border-t{border-top:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:24px;
+  }
+  .section-head .ref{white-space:nowrap;}
+  .section-head h2{font-size:24px;}
+
+  /* ---- about ---- */
+  .about p{max-width:62ch; color:var(--ink-soft);}
+  .about p + p{margin-top:14px;}
+
+  /* ---- timeline ---- */
+  .job{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:18px;
+    padding:20px 18px;
+    margin:0 -18px;
+    border-top:1px solid var(--line);
+    border-radius:4px;
+    transition:background .25s ease, box-shadow .25s ease;
+  }
+  .job:hover{
+    background:rgba(194,121,31,0.05);
+    box-shadow:inset 3px 0 0 var(--amber);
+  }
+  .job:first-of-type{border-top:none;}
+  .job time{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--slate);
+    padding-top:3px;
+  }
+  .job h3{font-size:18px;}
+  .job .org{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    margin-top:3px;
+  }
+  .job ul{margin:12px 0 0; padding-left:18px; color:var(--ink-soft);}
+  .job li{margin-bottom:6px;}
+
+  /* ---- case file ---- */
+  .casefile{
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    border-left:3px solid var(--amber);
+    padding:30px 28px;
+    margin-top:8px;
+    transition:box-shadow .3s ease, border-left-color .3s ease;
+  }
+  .casefile:hover{
+    box-shadow:0 0 0 1px var(--line), 0 0 28px var(--glow-amber);
+  }
+  .casefile .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:var(--amber);
+  }
+  .casefile h3{font-size:20px; margin-top:8px;}
+  .star{margin-top:20px;}
+  .star-row{display:grid; grid-template-columns:110px 1fr; gap:16px; padding:12px 0; border-top:1px dashed var(--line);}
+  .star-row:first-child{border-top:none;}
+  .star-row .k{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--slate); padding-top:2px;}
+  .star-row .v{color:var(--ink-soft);}
+  .linkmap{margin-top:24px; padding-top:20px; border-top:1px dashed var(--line);}
+  .linkmap .ref{margin-bottom:10px; display:block;}
+  .linkmap svg{width:100%; height:auto; display:block;}
+  .flags{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;}
+  .flag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--steel-deep);
+    background:#E9E2D0;
+    border:1px solid var(--line);
+    padding:5px 10px 5px 8px;
+    border-radius:2px;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .flag::before{content:"⚑"; color:var(--amber); font-size:11px;}
+  .casefile .note{
+    margin-top:18px; font-size:13.5px; color:var(--slate); font-style:italic;
+  }
+
+  /* ---- project ---- */
+  .project{
+    display:grid; grid-template-columns:1fr; gap:14px;
+  }
+  .project .stat{
+    font-family:'Newsreader', serif;
+    font-size:40px;
+    color:var(--steel);
+    line-height:1;
+    text-shadow:0 0 18px var(--glow-steel);
+  }
+  .stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:16px; margin-top:4px;}
+  .stat-cell{
+    border:1px solid var(--line); border-radius:4px; padding:16px 14px;
+    transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .stat-cell:hover{border-color:var(--steel); box-shadow:0 0 16px var(--glow-steel); transform:translateY(-2px);}
+  .stat-cell .stat{font-size:28px;}
+  .stat-cell .stat-label{font-size:11px; margin-top:4px;}
+  .project .stat-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--slate); margin-top:6px;
+  }
+
+  /* ---- skills ---- */
+  .skillgrid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:0;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .skillgrid div{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:14px 16px;
+    font-size:14.5px;
+    transition:background .2s ease, box-shadow .2s ease;
+    position:relative;
+  }
+  .skillgrid div:hover{
+    background:rgba(53,80,107,0.06);
+    box-shadow:inset 0 -2px 0 var(--steel);
+  }
+  .skillgrid .cat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--amber); display:block; margin-bottom:4px;
+  }
+
+  /* ---- credentials ---- */
+  .cred{
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:20px 22px;
+    margin-bottom:14px;
+    transition:box-shadow .3s ease, border-color .3s ease, transform .25s ease;
+  }
+  .cred:hover{
+    border-color:var(--amber);
+    box-shadow:0 0 20px var(--glow-amber);
+    transform:translateY(-2px);
+  }
+  .cred.featured{
+    border-left:3px solid var(--amber);
+    background:var(--paper-dim);
+    box-shadow:0 0 14px rgba(194,121,31,0.14);
+  }
+  .cred-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;}
+  .cred h3{font-size:17px;}
+  .cred .issuer{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--amber);
+  }
+  .cred .when{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; color:var(--slate); white-space:nowrap;
+  }
+  .cred p{margin-top:10px; color:var(--ink-soft); font-size:14.5px; max-width:60ch;}
+  .cred .badge{
+    display:inline-block; margin-top:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px; letter-spacing:0.04em;
+    color:var(--steel-deep); background:#E3D9C2;
+    padding:3px 8px; border-radius:2px;
+  }
+
+  /* ---- contact / footer ---- */
+  footer{
+    background:var(--steel-deep);
+    color:var(--paper);
+    padding:48px 0 40px;
+  }
+  footer h2{color:var(--paper); font-size:26px;}
+  footer p{color:#C9D2D9; max-width:46ch; margin-top:10px;}
+  .contact-links{margin-top:26px; display:flex; flex-wrap:wrap; gap:14px;}
+  .contact-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    border:1px solid #52677D;
+    padding:10px 16px;
+    text-decoration:none;
+    color:var(--paper);
+    border-radius:3px;
+  }
+  .contact-links a:hover{background:var(--steel);}
+  .fineprint{margin-top:34px; font-size:12px; color:#7F93A3;}
+
+  [data-i18n]{display:none;}
+
+  @media (max-width:560px){
+    .job{grid-template-columns:1fr;}
+    .star-row{grid-template-columns:1fr;}
+    .hero{padding:56px 0 48px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="langbar">
+  <div class="langbar-inner">
+    <button class="langbtn" data-setlang="en">EN</button>
+    <button class="langbtn" data-setlang="pt">PT</button>
+    <button class="langbtn" data-setlang="es">ES</button>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="ref">FILE / AG-001 — <span data-i18n="en">PROFESSIONAL PROFILE</span><span data-i18n="pt">PERFIL PROFISSIONAL</span><span data-i18n="es">PERFIL PROFESIONAL</span></div>
+    <h1>Alexandre Gabbia</h1>
+    <div class="role">
+      <span data-i18n="en">FINANCIAL CRIME &amp; AML ANALYST — FRAUD PREVENTION</span>
+      <span data-i18n="pt">ANALISTA DE PREVENÇÃO A FRAUDES &amp; AML/CFT</span>
+      <span data-i18n="es">ANALISTA DE PREVENCIÓN DE FRAUDE Y AML/CFT</span>
+    </div>
+    <p class="lead">
+      <span data-i18n="en">Nine years turning transaction data into evidence. AML/CFT analyst at Nubank, formerly fraud prevention at Afinz — now looking to bring that casework to a financial crime team in Europe.</span>
+      <span data-i18n="pt">Nove anos transformando dado transacional em evidência. Analista de AML/CFT no Nubank, antes prevenção a fraudes na Afinz — buscando levar essa experiência para um time de financial crime na Europa.</span>
+      <span data-i18n="es">Nueve años convirtiendo datos transaccionales en evidencia. Analista de AML/CFT en Nubank, antes prevención de fraude en Afinz, buscando llevar esa experiencia a un equipo de financial crime en Europa.</span>
+    </p>
+    <div class="meta">
+      <a href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">linkedin.com/in/alexandregabbia</a>
+      <a href="mailto:alexgabbia@gmail.com">alexgabbia@gmail.com</a>
+      <span>
+        <span data-i18n="en">Based in Brazil — open to relocation</span>
+        <span data-i18n="pt">Baseado no Brasil — aberto a mudança de país</span>
+        <span data-i18n="es">Con base en Brasil — abierto a reubicación</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">01</span>
+      <h2>
+        <span data-i18n="en">About</span>
+        <span data-i18n="pt">Sobre</span>
+        <span data-i18n="es">Acerca de</span>
+      </h2>
+    </div>
+    <div class="about">
+      <p data-i18n="en">I work across AML/CFT and fraud prevention: transaction monitoring, onboarding and KYC review, document forensics, and case investigation. At Nubank I review alerts spanning high-value movement, third-party concentration, FATF-listed country exposure and gift-card abuse. Before that, at Afinz, I ran fraud prevention across the full customer lifecycle, from onboarding to receivables monitoring.</p>
+      <p data-i18n="en">I'm drawn to investigative work, building a hypothesis from a small inconsistency and following it until the picture is clear, and I'm equally comfortable in the operational grind of day-to-day monitoring. I also build tools: an internal automation platform I designed now runs daily and cut regulatory lookup time by roughly 83%.</p>
+
+      <p data-i18n="pt">Atuo entre AML/CFT e prevenção a fraudes: monitoramento de transações, análise de onboarding e KYC, documentoscopia e investigação de casos. No Nubank, analiso alertas de movimentações expressivas, concentração com terceiros, exposição a países listados pelo GAFI e uso indevido de gift card. Antes, na Afinz, atuei em prevenção a fraudes em toda a jornada do cliente, do onboarding ao monitoramento de recebíveis.</p>
+      <p data-i18n="pt">Gosto de trabalho investigativo, montar uma hipótese a partir de uma pequena inconsistência e seguir até o quadro ficar claro, e também me sinto à vontade na rotina operacional do dia a dia. Também construo ferramentas: uma plataforma interna de automação que idealizei roda diariamente e reduziu em cerca de 83% o tempo de consulta regulatória.</p>
+
+      <p data-i18n="es">Trabajo entre AML/CFT y prevención de fraude: monitoreo de transacciones, análisis de onboarding y KYC, documentoscopia e investigación de casos. En Nubank reviso alertas de movimientos de alto valor, concentración con terceros, exposición a países listados por el GAFI y uso indebido de tarjetas regalo. Antes, en Afinz, trabajé en prevención de fraude a lo largo de todo el ciclo del cliente, desde el onboarding hasta el monitoreo de cuentas por cobrar.</p>
+      <p data-i18n="es">Me atrae el trabajo investigativo, construir una hipótesis a partir de una pequeña inconsistencia y seguirla hasta tener el cuadro claro, y también me siento cómodo en la rutina operativa diaria. Además construyo herramientas: una plataforma interna de automatización que diseñé funciona a diario y redujo en cerca de 83% el tiempo de consulta regulatoria.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">02</span>
+      <h2>
+        <span data-i18n="en">Record</span>
+        <span data-i18n="pt">Trajetória</span>
+        <span data-i18n="es">Trayectoria</span>
+      </h2>
+    </div>
+
+    <div class="job">
+      <time data-i18n="en">MAY 2025 — PRESENT</time>
+      <time data-i18n="pt">MAIO 2025 — ATUAL</time>
+      <time data-i18n="es">MAYO 2025 — ACTUAL</time>
+      <div>
+        <h3>
+          <span data-i18n="en">AML/CFT Analyst</span>
+          <span data-i18n="pt">Analista de AML/CFT</span>
+          <span data-i18n="es">Analista de AML/CFT</span>
+        </h3>
+        <div class="org">Nubank</div>
+        <ul>
+          <li data-i18n="en">Review AML alerts: high-value movement, third-party concentration, FATF-listed exposure, gift-card misuse.</li>
+          <li data-i18n="en">Designed and built an internal regulatory-lookup tool (now v2) that checks licensed betting operators, regulated payment institutions and the FATF list in one place, refreshed daily; cut average lookup time by ~83%.</li>
+          <li data-i18n="pt">Análise de alertas de AML: movimentações expressivas, concentração com terceiros, exposição a países listados pelo GAFI, uso indevido de gift card.</li>
+          <li data-i18n="pt">Idealizei e construí uma ferramenta interna de consulta regulatória (hoje na v2) que verifica casas de apostas regulamentadas, instituições de pagamento regulamentadas e a lista do GAFI em um só lugar, atualizada diariamente; reduziu ~83% o tempo médio de consulta.</li>
+          <li data-i18n="es">Análisis de alertas de AML: movimientos de alto valor, concentración con terceros, exposición a países listados por el GAFI, uso indebido de tarjetas regalo.</li>
+          <li data-i18n="es">Diseñé y construí una herramienta interna de consulta regulatoria (hoy en v2) que verifica casas de apuestas reguladas, instituciones de pago reguladas y la lista del GAFI en un solo lugar, actualizada a diario; redujo ~83% el tiempo medio de consulta.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <time data-i18n="en">2017 — 2025 (~7Y10M)</time>
+      <time data-i18n="pt">2017 — 2025 (~7A10M)</time>
+      <time data-i18n="es">2017 — 2025 (~7A10M)</time>
+      <div>
+        <h3>
+          <span data-i18n="en">Fraud Prevention Analyst (Jr. → Mid)</span>
+          <span data-i18n="pt">Analista de Prevenção a Fraude (Jr. → Pleno)</span>
+          <span data-i18n="es">Analista de Prevención de Fraude (Jr. → Pleno)</span>
+        </h3>
+        <div class="org">Afinz</div>
+        <ul>
+          <li data-i18n="en">Progressed from credit-onboarding review to fraud investigation to owning fraud monitoring for the merchant receivables-advance product.</li>
+          <li data-i18n="en">Investigated onboarding and document fraud using document forensics; cases I built were formalized into case files used for legal action.</li>
+          <li data-i18n="en">Proposed and shipped a risk-based auto-approval rule for receivables advances, replacing a fully manual process and cutting review volume without raising default risk.</li>
+          <li data-i18n="en">Used Python/SQL to pull and rank portfolio data for ad-hoc risk studies; supported legal team with evidence review on client disputes.</li>
+          <li data-i18n="pt">Evoluí de análise de onboarding de crédito para investigação de fraude até assumir o monitoramento de fraude do produto de antecipação de recebíveis para lojistas.</li>
+          <li data-i18n="pt">Investiguei fraudes de onboarding e documentação usando documentoscopia; casos que montei viraram dossiês usados para ação jurídica.</li>
+          <li data-i18n="pt">Propus e implementei uma regra de aprovação automática baseada em risco para antecipação de recebíveis, substituindo um processo totalmente manual e reduzindo volume de análise sem elevar o risco de inadimplência.</li>
+          <li data-i18n="pt">Usei Python/SQL para extrair e ranquear dados de carteira em estudos de risco pontuais; apoiei o jurídico na análise de evidências em disputas de clientes.</li>
+          <li data-i18n="es">Evolucioné desde el análisis de onboarding de crédito hasta la investigación de fraude y luego asumí el monitoreo de fraude del producto de adelanto de cuentas por cobrar para comercios.</li>
+          <li data-i18n="es">Investigué fraudes de onboarding y documentación mediante documentoscopia; casos que armé se convirtieron en expedientes usados para acciones legales.</li>
+          <li data-i18n="es">Propuse e implementé una regla de aprobación automática basada en riesgo para adelantos de cuentas por cobrar, reemplazando un proceso totalmente manual y reduciendo el volumen de revisión sin elevar el riesgo de incumplimiento.</li>
+          <li data-i18n="es">Usé Python/SQL para extraer y clasificar datos de cartera en estudios de riesgo puntuales; apoyé al equipo legal en la revisión de evidencia en disputas de clientes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE FILE ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">03</span>
+      <h2>
+        <span data-i18n="en">Case File</span>
+        <span data-i18n="pt">Dossiê de Caso</span>
+        <span data-i18n="es">Expediente de Caso</span>
+      </h2>
+    </div>
+
+    <div class="casefile">
+      <div class="tag" data-i18n="en">IDENTITY FRAUD RING — ONBOARDING, RECEIVABLES PRODUCT</div>
+      <div class="tag" data-i18n="pt">ANEL DE FRAUDE DE IDENTIDADE — ONBOARDING, PRODUTO DE RECEBÍVEIS</div>
+      <div class="tag" data-i18n="es">RED DE FRAUDE DE IDENTIDAD — ONBOARDING, PRODUCTO DE CUENTAS POR COBRAR</div>
+
+      <div class="star">
+        <div class="star-row">
+          <div class="k" data-i18n="en">SITUATION</div>
+          <div class="k" data-i18n="pt">SITUAÇÃO</div>
+          <div class="k" data-i18n="es">SITUACIÓN</div>
+          <div class="v" data-i18n="en">A merchant requested a large, out-of-pattern advance against future card receivables. The size alone was enough to hold the operation for review.</div>
+          <div class="v" data-i18n="pt">Um lojista solicitou uma antecipação de valor alto e fora do padrão sobre recebíveis futuros de cartão. O valor por si só já justificou segurar a operação para análise.</div>
+          <div class="v" data-i18n="es">Un comercio solicitó un adelanto de valor alto y fuera de patrón sobre cuentas por cobrar futuras de tarjeta. El monto por sí solo justificó retener la operación para revisión.</div>
+        </div>
+        <div class="star-row">
+          <div class="k" data-i18n="en">TASK</div>
+          <div class="k" data-i18n="pt">TAREFA</div>
+          <div class="k" data-i18n="es">TAREA</div>
+          <div class="v" data-i18n="en">Verify the merchant's identity and the legitimacy of the registration before any funds could move.</div>
+          <div class="v" data-i18n="pt">Verificar a identidade do lojista e a legitimidade do cadastro antes de qualquer liberação de valores.</div>
+          <div class="v" data-i18n="es">Verificar la identidad del comercio y la legitimidad del registro antes de liberar cualquier valor.</div>
+        </div>
+        <div class="star-row">
+          <div class="k" data-i18n="en">ACTION</div>
+          <div class="k" data-i18n="pt">AÇÃO</div>
+          <div class="k" data-i18n="es">ACCIÓN</div>
+          <div class="v" data-i18n="en">Applying document forensics, I identified a forged ID. The registered business address had no matching establishment on record. Pulling the onboarding log for that date surfaced four more merchant registrations opened the same day. Cross-checking documents and verification-call recordings across all five showed the same ID photo reused under different names, the same voice behind inconsistent accents, and addresses fabricated across different states.</div>
+          <div class="v" data-i18n="pt">Aplicando documentoscopia, identifiquei um RG fraudado. O endereço cadastrado do estabelecimento não correspondia a nenhum negócio real no local. Ao puxar o log de onboarding daquela data, encontrei outras quatro aberturas de cadastro de lojista no mesmo dia. Cruzando documentos e gravações das ligações de verificação dos cinco casos, apareceu a mesma foto de RG reutilizada sob nomes diferentes, a mesma voz por trás de sotaques inconsistentes, e endereços fictícios em estados diferentes.</div>
+          <div class="v" data-i18n="es">Aplicando documentoscopia, identifiqué una identificación falsificada. La dirección registrada del establecimiento no correspondía a ningún negocio real en el lugar. Al revisar el registro de onboarding de esa fecha, encontré otras cuatro aperturas de registro de comercio el mismo día. Cruzando documentos y grabaciones de llamadas de verificación de los cinco casos, apareció la misma foto de identificación reutilizada bajo nombres distintos, la misma voz detrás de acentos inconsistentes, y direcciones ficticias en distintos estados.</div>
+        </div>
+        <div class="star-row">
+          <div class="k" data-i18n="en">RESULT</div>
+          <div class="k" data-i18n="pt">RESULTADO</div>
+          <div class="k" data-i18n="es">RESULTADO</div>
+          <div class="v" data-i18n="en">All five operations were blocked before disbursement. I compiled the findings into a formal case dossier, which the company used to pursue legal action against the fraud ring. The format became the internal reference for how deeper investigative cases were documented going forward.</div>
+          <div class="v" data-i18n="pt">As cinco operações foram barradas antes do desembolso. Compilei os achados em um dossiê formal, que a empresa usou para tomar ação jurídica contra o anel de fraude. O formato virou referência interna para a documentação de casos investigativos mais aprofundados dali em diante.</div>
+          <div class="v" data-i18n="es">Las cinco operaciones fueron bloqueadas antes del desembolso. Compilé los hallazgos en un expediente formal, que la empresa usó para iniciar acciones legales contra la red de fraude. El formato se convirtió en la referencia interna para documentar casos investigativos más profundos a partir de entonces.</div>
+        </div>
+      </div>
+
+      <div class="linkmap">
+        <span class="ref">
+          <span data-i18n="en">EXHIBIT A — LINK ANALYSIS</span>
+          <span data-i18n="pt">ANEXO A — ANÁLISE DE VÍNCULOS</span>
+          <span data-i18n="es">ANEXO A — ANÁLISIS DE VÍNCULOS</span>
+        </span>
+        <svg viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram linking five merchant registrations to one identity">
+          <g stroke="#B9AF98" stroke-width="1.4" stroke-dasharray="3 4">
+            <line x1="340" y1="115" x2="90" y2="30"/>
+            <line x1="340" y1="115" x2="250" y2="20"/>
+            <line x1="340" y1="115" x2="430" y2="20"/>
+            <line x1="340" y1="115" x2="590" y2="30"/>
+            <line x1="340" y1="115" x2="340" y2="205"/>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#7C8594" text-anchor="middle">
+            <circle cx="90" cy="30" r="20" fill="#F7F5F0" stroke="#D8D2C4"/>
+            <text x="90" y="34">M1</text>
+            <circle cx="250" cy="20" r="20" fill="#F7F5F0" stroke="#D8D2C4"/>
+            <text x="250" y="24">M2</text>
+            <circle cx="430" cy="20" r="20" fill="#F7F5F0" stroke="#D8D2C4"/>
+            <text x="430" y="24">M3</text>
+            <circle cx="590" cy="30" r="20" fill="#F7F5F0" stroke="#D8D2C4"/>
+            <text x="590" y="34">M4</text>
+            <circle cx="340" cy="205" r="20" fill="#F7F5F0" stroke="#D8D2C4"/>
+            <text x="340" y="209">M5</text>
+          </g>
+          <circle cx="340" cy="115" r="30" fill="#C2791F" opacity="0.14" stroke="#C2791F" stroke-width="1.5"/>
+          <text x="340" y="112" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#8A5415" text-anchor="middle">SAME</text>
+          <text x="340" y="124" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#8A5415" text-anchor="middle">ID</text>
+        </svg>
+        <div class="flags">
+          <span class="flag" data-i18n="en">Same-day onboarding cluster</span>
+          <span class="flag" data-i18n="pt">Cadastros no mesmo dia</span>
+          <span class="flag" data-i18n="es">Registros el mismo día</span>
+          <span class="flag" data-i18n="en">Reused ID photo</span>
+          <span class="flag" data-i18n="pt">Foto de RG reutilizada</span>
+          <span class="flag" data-i18n="es">Foto de identificación reutilizada</span>
+          <span class="flag" data-i18n="en">Inconsistent accent on calls</span>
+          <span class="flag" data-i18n="pt">Sotaque inconsistente nas ligações</span>
+          <span class="flag" data-i18n="es">Acento inconsistente en llamadas</span>
+          <span class="flag" data-i18n="en">Fabricated address</span>
+          <span class="flag" data-i18n="pt">Endereço fictício</span>
+          <span class="flag" data-i18n="es">Dirección ficticia</span>
+        </div>
+      </div>
+
+      <div class="note">
+        <span data-i18n="en">Details anonymized and figures generalized to protect confidentiality. Available to discuss methodology in interview.</span>
+        <span data-i18n="pt">Detalhes anonimizados e valores generalizados para preservar confidencialidade. Disponível para discutir a metodologia em entrevista.</span>
+        <span data-i18n="es">Detalles anonimizados y cifras generalizadas para preservar la confidencialidad. Disponible para discutir la metodología en entrevista.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">04</span>
+      <h2>
+        <span data-i18n="en">Built</span>
+        <span data-i18n="pt">Construído</span>
+        <span data-i18n="es">Construido</span>
+      </h2>
+    </div>
+    <div class="project">
+      <div class="star">
+        <div class="star-row">
+          <div class="k" data-i18n="en">PROBLEM</div>
+          <div class="k" data-i18n="pt">PROBLEMA</div>
+          <div class="k" data-i18n="es">PROBLEMA</div>
+          <div class="v" data-i18n="en">Checking whether a counterparty was on a regulated-operator list, a licensed payment-institution registry, or an FATF-listed country meant opening several government sites by hand, for every single alert.</div>
+          <div class="v" data-i18n="pt">Checar se uma contraparte estava numa lista de operador regulamentado, num registro de instituição de pagamento licenciada ou era de um país listado pelo GAFI exigia abrir vários sites do governo manualmente, a cada alerta.</div>
+          <div class="v" data-i18n="es">Verificar si una contraparte estaba en una lista de operador regulado, en un registro de institución de pago licenciada o era de un país listado por el GAFI exigía abrir varios sitios del gobierno a mano, en cada alerta.</div>
+        </div>
+        <div class="star-row">
+          <div class="k" data-i18n="en">OPPORTUNITY</div>
+          <div class="k" data-i18n="pt">OPORTUNIDADE</div>
+          <div class="k" data-i18n="es">OPORTUNIDAD</div>
+          <div class="v" data-i18n="en">I noticed the same three or four sources got checked by every analyst, every day, with no shared tool. That repetition was pure friction, and friction in a high-volume queue is where things get missed.</div>
+          <div class="v" data-i18n="pt">Percebi que as mesmas três ou quatro fontes eram checadas por todo analista, todo dia, sem ferramenta compartilhada. Essa repetição era atrito puro, e atrito numa fila de alto volume é onde coisa passa despercebida.</div>
+          <div class="v" data-i18n="es">Noté que las mismas tres o cuatro fuentes eran revisadas por cada analista, todos los días, sin herramienta compartida. Esa repetición era fricción pura, y la fricción en una cola de alto volumen es donde algo se escapa.</div>
+        </div>
+        <div class="star-row">
+          <div class="k" data-i18n="en">ACTION</div>
+          <div class="k" data-i18n="pt">AÇÃO</div>
+          <div class="k" data-i18n="es">ACCIÓN</div>
+          <div class="v" data-i18n="en">I designed and built an internal tool, with Claude as a build partner, that pulls all three sources into one lookup and refreshes the underlying data daily on its own. Now on its second version.</div>
+          <div class="v" data-i18n="pt">Idealizei e construí uma ferramenta interna, com o Claude como parceiro de construção, que reúne as três fontes numa consulta só e atualiza a base sozinha, todo dia. Hoje já na segunda versão.</div>
+          <div class="v" data-i18n="es">Diseñé y construí una herramienta interna, con Claude como socio de construcción, que reúne las tres fuentes en una sola consulta y actualiza la base sola, todos los días. Hoy ya en su segunda versión.</div>
+        </div>
+      </div>
+
+      <div class="ref" style="margin-top:28px;">
+        <span data-i18n="en">RESULT — USAGE SINCE LAUNCH (JUN 25 — OCT 26, 2026)</span>
+        <span data-i18n="pt">RESULTADO — USO DESDE O LANÇAMENTO (25/06 — 26/10/2026)</span>
+        <span data-i18n="es">RESULTADO — USO DESDE EL LANZAMIENTO (25/06 — 26/10/2026)</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="stat">3.377</div>
+          <div class="stat-label"><span data-i18n="en">SITE VISITS</span><span data-i18n="pt">ACESSOS AO SITE</span><span data-i18n="es">VISITAS AL SITIO</span></div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat">149</div>
+          <div class="stat-label"><span data-i18n="en">UNIQUE USERS</span><span data-i18n="pt">USUÁRIOS ÚNICOS</span><span data-i18n="es">USUARIOS ÚNICOS</span></div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat">86/88</div>
+          <div class="stat-label"><span data-i18n="en">BUSINESS DAYS WITH USE</span><span data-i18n="pt">DIAS ÚTEIS COM USO</span><span data-i18n="es">DÍAS HÁBILES CON USO</span></div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat">91%</div>
+          <div class="stat-label"><span data-i18n="en">RETURNING USERS</span><span data-i18n="pt">TAXA DE RETORNO</span><span data-i18n="es">TASA DE RETORNO</span></div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat">≈128h</div>
+          <div class="stat-label"><span data-i18n="en">MANUAL WORK AVOIDED</span><span data-i18n="pt">TRABALHO MANUAL EVITADO</span><span data-i18n="es">TRABAJO MANUAL EVITADO</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDENTIALS ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">05</span>
+      <h2>
+        <span data-i18n="en">Credentials</span>
+        <span data-i18n="pt">Formação &amp; Certificações</span>
+        <span data-i18n="es">Formación y Certificaciones</span>
+      </h2>
+    </div>
+
+    <div class="cred featured">
+      <div class="cred-top">
+        <h3>Digital Payments Catalyst</h3>
+        <span class="when">NOV 2023 — JAN 2024</span>
+      </div>
+      <div class="issuer">Wharton Online × VISA University</div>
+      <p>
+        <span data-i18n="en">Technical Degree, Fraud and Digital Payments Investigation. English-language program covering the payments ecosystem, digital payments innovation, AI and big data applications, fraud and cybersecurity, and regulation. Sponsored by Afinz.</span>
+        <span data-i18n="pt">Formação técnica em Investigação de Fraudes e Pagamentos Digitais, curso em inglês, cobrindo ecossistema de pagamentos, inovação em pagamentos digitais, aplicação de IA e Big Data, fraude e cibersegurança, e regulação. Custeado pela Afinz.</span>
+        <span data-i18n="es">Formación técnica en Investigación de Fraude y Pagos Digitales, curso en inglés, cubriendo el ecosistema de pagos, innovación en pagos digitales, aplicación de IA y Big Data, fraude y ciberseguridad, y regulación. Costeado por Afinz.</span>
+      </p>
+      <span class="badge">
+        <span data-i18n="en">INTERNATIONAL · ENGLISH-TAUGHT</span>
+        <span data-i18n="pt">INTERNACIONAL · CURSO EM INGLÊS</span>
+        <span data-i18n="es">INTERNACIONAL · CURSO EN INGLÉS</span>
+      </span>
+    </div>
+
+    <div class="cred">
+      <div class="cred-top">
+        <h3>
+          <span data-i18n="en">Anti-Money Laundering Prevention (PLD)</span>
+          <span data-i18n="pt">Prevenção à Lavagem de Dinheiro (PLD)</span>
+          <span data-i18n="es">Prevención del Lavado de Dinero (PLD)</span>
+        </h3>
+        <span class="when">2026</span>
+      </div>
+      <div class="issuer">Ancord</div>
+      <p>
+        <span data-i18n="en">Risk identification and assessment, regulatory standards, suspicious activity reporting, and the risk-based approach in the financial market. Sponsored by Nubank.</span>
+        <span data-i18n="pt">Identificação e avaliação de riscos, normas regulatórias, comunicação de operações suspeitas e abordagem baseada em risco no mercado financeiro. Incentivado pelo Nubank.</span>
+        <span data-i18n="es">Identificación y evaluación de riesgos, normas regulatorias, reporte de operaciones sospechosas y enfoque basado en riesgo en el mercado financiero. Incentivado por Nubank.</span>
+      </p>
+    </div>
+
+    <div class="cred">
+      <div class="cred-top">
+        <h3>
+          <span data-i18n="en">Technical Degree, Management Processes</span>
+          <span data-i18n="pt">Técnico em Processos Gerenciais</span>
+          <span data-i18n="es">Técnico en Procesos Gerenciales</span>
+        </h3>
+        <span class="when">JAN 2019 — FEB 2021</span>
+      </div>
+      <div class="issuer">Centro Universitário FAM</div>
+      <p>
+        <span data-i18n="en">Business management, financial performance analysis, management-plan development, and organizational process management.</span>
+        <span data-i18n="pt">Gestão de empresas, análise de desempenho financeiro, elaboração de planos de gestão e gestão de processos organizacionais.</span>
+        <span data-i18n="es">Gestión empresarial, análisis de desempeño financiero, elaboración de planes de gestión y gestión de procesos organizacionales.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="border-t">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="ref">06</span>
+      <h2>
+        <span data-i18n="en">Skills</span>
+        <span data-i18n="pt">Habilidades</span>
+        <span data-i18n="es">Habilidades</span>
+      </h2>
+    </div>
+    <div class="skillgrid">
+      <div><span class="cat" data-i18n="en">INVESTIGATION</span><span class="cat" data-i18n="pt">INVESTIGAÇÃO</span><span class="cat" data-i18n="es">INVESTIGACIÓN</span>
+        <span data-i18n="en">Document forensics</span><span data-i18n="pt">Documentoscopia</span><span data-i18n="es">Documentoscopia</span>
+      </div>
+      <div><span class="cat" data-i18n="en">COMPLIANCE</span><span class="cat" data-i18n="pt">COMPLIANCE</span><span class="cat" data-i18n="es">COMPLIANCE</span>
+        AML / CFT
+      </div>
+      <div><span class="cat" data-i18n="en">COMPLIANCE</span><span class="cat" data-i18n="pt">COMPLIANCE</span><span class="cat" data-i18n="es">COMPLIANCE</span>
+        KYC / Onboarding
+      </div>
+      <div><span class="cat" data-i18n="en">OPERATIONS</span><span class="cat" data-i18n="pt">OPERAÇÃO</span><span class="cat" data-i18n="es">OPERACIONES</span>
+        <span data-i18n="en">Transaction monitoring</span><span data-i18n="pt">Monitoramento de transações</span><span data-i18n="es">Monitoreo de transacciones</span>
+      </div>
+      <div><span class="cat" data-i18n="en">DATA</span><span class="cat" data-i18n="pt">DADOS</span><span class="cat" data-i18n="es">DATOS</span>
+        SQL
+      </div>
+      <div><span class="cat" data-i18n="en">DATA</span><span class="cat" data-i18n="pt">DADOS</span><span class="cat" data-i18n="es">DATOS</span>
+        Python
+      </div>
+      <div><span class="cat" data-i18n="en">REPORTING</span><span class="cat" data-i18n="pt">RELATÓRIOS</span><span class="cat" data-i18n="es">INFORMES</span>
+        <span data-i18n="en">Case dossiers</span><span data-i18n="pt">Dossiês de caso</span><span data-i18n="es">Expedientes de caso</span>
+      </div>
+      <div><span class="cat" data-i18n="en">LANGUAGES</span><span class="cat" data-i18n="pt">IDIOMAS</span><span class="cat" data-i18n="es">IDIOMAS</span>
+        <span data-i18n="en">Portuguese (native), English (B1)</span><span data-i18n="pt">Português (nativo), Inglês (B1)</span><span data-i18n="es">Portugués (nativo), Inglés (B1)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<footer>
+  <div class="wrap">
+    <h2>
+      <span data-i18n="en">Let's talk</span>
+      <span data-i18n="pt">Vamos conversar</span>
+      <span data-i18n="es">Hablemos</span>
+    </h2>
+    <p>
+      <span data-i18n="en">Open to AML/CFT and fraud prevention roles across Europe. Happy to walk through any case on this page in more detail.</span>
+      <span data-i18n="pt">Aberto a vagas de AML/CFT e prevenção a fraudes na Europa. À disposição para detalhar qualquer caso desta página.</span>
+      <span data-i18n="es">Abierto a puestos de AML/CFT y prevención de fraude en Europa. Disponible para detallar cualquier caso de esta página.</span>
+    </p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="mailto:alexgabbia@gmail.com">Email</a>
+    </div>
+    <div class="fineprint">FILE / AG-001 — © Alexandre Gabbia</div>
+  </div>
+</footer>
+
+<script>
+  var btns = document.querySelectorAll('[data-setlang]');
+  var i18nEls = document.querySelectorAll('[data-i18n]');
+  function setLang(lang){
+    document.documentElement.setAttribute('data-lang', lang);
+    i18nEls.forEach(function(el){
+      var show = el.getAttribute('data-i18n') === lang;
+      var onShow = el.classList.contains('flag') ? 'inline-flex' : (el.tagName === 'SPAN' ? 'inline' : 'block');
+      el.style.display = show ? onShow : 'none';
+    });
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-setlang') === lang); });
+    try { localStorage.setItem('ag_lang', lang); } catch(e){}
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-setlang')); });
+  });
+  var saved = 'en';
+  try { saved = localStorage.getItem('ag_lang') || 'en'; } catch(e){}
+  setLang(saved);
+</script>
+
+</body>
+</html>
