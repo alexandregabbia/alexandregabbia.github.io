@@ -21,6 +21,8 @@
     --max:760px;
     --glow-amber:rgba(194,121,31,0.38);
     --glow-steel:rgba(97,160,214,0.35);
+    --neon-cyan:#5FE3E8;
+    --glow-cyan:rgba(95,227,232,0.55);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -35,6 +37,53 @@
     0%,100%{box-shadow:0 0 0 rgba(194,121,31,0);}
     50%{box-shadow:0 0 22px var(--glow-amber);}
   }
+  @keyframes sweep{ to{ transform:rotate(360deg); } }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+  @keyframes ctaGlow{
+    0%,100%{box-shadow:0 0 8px var(--glow-cyan), inset 0 0 0 1px rgba(95,227,232,0.5);}
+    50%{box-shadow:0 0 20px var(--glow-cyan), inset 0 0 0 1px rgba(95,227,232,0.8);}
+  }
+
+  /* ---- scroll progress ---- */
+  #progress{
+    position:fixed; top:0; left:0; height:2px; width:0%;
+    background:var(--neon-cyan);
+    box-shadow:0 0 8px var(--glow-cyan);
+    z-index:40;
+  }
+
+  /* ---- side nav ---- */
+  .sidenav{
+    position:fixed; left:22px; top:50%; transform:translateY(-50%);
+    z-index:25;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .sidenav a{
+    width:9px; height:9px; border-radius:50%;
+    background:transparent;
+    border:1.5px solid var(--slate);
+    display:block; position:relative;
+    transition:border-color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .sidenav a:hover{transform:scale(1.3);}
+  .sidenav a.active{
+    background:var(--neon-cyan);
+    border-color:var(--neon-cyan);
+    box-shadow:0 0 10px var(--glow-cyan);
+  }
+  .sidenav a span{
+    position:absolute; left:20px; top:50%; transform:translateY(-50%);
+    white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    color:var(--ink-soft);
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:3px 8px; border-radius:2px;
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .sidenav a:hover span{opacity:1;}
+  @media (max-width:900px){ .sidenav{display:none;} }
   body{
     margin:0;
     background:var(--paper);
@@ -88,6 +137,41 @@
     background:var(--steel-deep);
     color:var(--paper);
     padding:72px 0 64px;
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0; z-index:0;
+    background:radial-gradient(420px circle at var(--mx,70%) var(--my,30%), rgba(95,227,232,0.14), transparent 60%);
+    transition:background .08s linear;
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+  .hero .wrap{
+    position:relative; z-index:1;
+    max-width:980px;
+    display:grid; grid-template-columns:1fr 240px; gap:40px; align-items:center;
+  }
+  .hero-radar{justify-self:center; opacity:0; animation:riseIn .7s ease .3s forwards;}
+  .hero-radar svg{display:block;}
+  .hero-radar .sweep{
+    transform-origin:110px 110px;
+    animation:sweep 4s linear infinite;
+  }
+  .hero-radar .node{animation:blink 2.6s ease-in-out infinite;}
+  .hero-radar .node:nth-child(2){animation-delay:.6s;}
+  .hero-radar .node:nth-child(3){animation-delay:1.2s;}
+  .hero-radar .node:nth-child(4){animation-delay:1.8s;}
+  @media (max-width:760px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-radar{display:none;}
   }
   .hero .ref{color:#9FB2C2; opacity:0; animation:riseIn .6s ease .05s forwards;}
   .hero h1{
@@ -114,45 +198,27 @@
   }
   .hero .meta{
     margin-top:32px;
-    display:flex; flex-wrap:wrap; gap:22px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:14px;
     font-family:'IBM Plex Mono', monospace;
     font-size:12.5px;
     color:#9FB2C2;
     opacity:0; animation:riseIn .6s ease .52s forwards;
   }
-  .hero .meta a{text-decoration:underline; text-decoration-color:#52677D; transition:color .2s ease, text-decoration-color .2s ease;}
-  .hero .meta a:hover{color:#C9A36A; text-decoration-color:#C9A36A;}
-
-  /* ---- quickstats ---- */
-  .quickstats{
-    background:var(--paper-dim);
-    border-bottom:1px solid var(--line);
+  .cta{
+    display:inline-flex; align-items:center; gap:8px;
+    text-decoration:none;
+    color:var(--paper);
+    border:1px solid rgba(95,227,232,0.45);
+    border-radius:4px;
+    padding:10px 16px;
+    position:relative;
+    transition:transform .2s ease, background .2s ease;
+    animation:ctaGlow 2.6s ease-in-out infinite;
   }
-  .qs-row{
-    display:grid; grid-template-columns:repeat(4,1fr);
-    max-width:var(--max); margin:0 auto;
-  }
-  .qs-cell{
-    padding:22px 16px;
-    text-align:center;
-    border-right:1px solid var(--line);
-  }
-  .qs-cell:last-child{border-right:none;}
-  .qs-num{
-    font-family:'Newsreader', serif;
-    font-size:28px;
-    color:var(--steel);
-  }
-  .qs-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    color:var(--slate);
-    margin-top:4px;
-  }
-  @media (max-width:560px){
-    .qs-row{grid-template-columns:repeat(2,1fr);}
-    .qs-cell:nth-child(2){border-right:none;}
-  }
+  .cta:hover{transform:translateY(-2px); background:rgba(95,227,232,0.08);}
+  .cta svg{width:14px; height:14px; flex:none;}
+  .cta.copied{background:var(--neon-cyan); color:var(--steel-deep); border-color:var(--neon-cyan);}
+  .meta-note{color:#9FB2C2;}
 
   /* ---- sections ---- */
   section{padding:56px 0;}
@@ -228,6 +294,20 @@
     font-size:14px; color:var(--ink-soft);
   }
   .highlight b{color:var(--ink); font-weight:600;}
+  .job-toggle{
+    margin-top:14px;
+    background:none; border:none; cursor:pointer;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    color:var(--steel); display:inline-flex; align-items:center; gap:5px;
+    padding:0;
+  }
+  .job-toggle svg{width:10px; height:10px; transition:transform .25s ease;}
+  .job.open .job-toggle svg{transform:rotate(180deg);}
+  .job-more{
+    max-height:0; overflow:hidden;
+    transition:max-height .4s ease;
+  }
+  .job.open .job-more{max-height:900px;}
 
   /* ---- case file ---- */
   .casefile{
@@ -321,6 +401,9 @@
   }
 
   /* ---- credentials ---- */
+  .credgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .credgrid .cred.featured{grid-column:1/-1;}
+  @media (max-width:700px){ .credgrid{grid-template-columns:1fr;} }
   .cred{
     border:1px solid var(--line);
     border-radius:4px;
@@ -366,16 +449,7 @@
   footer h2{color:var(--paper); font-size:26px;}
   footer p{color:#C9D2D9; max-width:46ch; margin-top:10px;}
   .contact-links{margin-top:26px; display:flex; flex-wrap:wrap; gap:14px;}
-  .contact-links a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    border:1px solid #52677D;
-    padding:10px 16px;
-    text-decoration:none;
-    color:var(--paper);
-    border-radius:3px;
-  }
-  .contact-links a:hover{background:var(--steel);}
+  .contact-links .cta{font-size:13px;}
   .fineprint{margin-top:34px; font-size:12px; color:#7F93A3;}
 
   [data-i18n]{display:none;}
@@ -389,6 +463,18 @@
 </head>
 <body>
 
+<div id="progress"></div>
+
+<nav class="sidenav">
+  <a href="#hero" data-sec="hero" title="Hero"><span>00 · TOP</span></a>
+  <a href="#about" data-sec="about" title="About"><span>01 · <span data-i18n="en">ABOUT</span><span data-i18n="pt">SOBRE</span><span data-i18n="es">ACERCA</span></span></a>
+  <a href="#record" data-sec="record" title="Record"><span>02 · <span data-i18n="en">RECORD</span><span data-i18n="pt">TRAJETÓRIA</span><span data-i18n="es">TRAYECTORIA</span></span></a>
+  <a href="#case" data-sec="case" title="Case File"><span>03 · <span data-i18n="en">CASE FILE</span><span data-i18n="pt">DOSSIÊ</span><span data-i18n="es">EXPEDIENTE</span></span></a>
+  <a href="#built" data-sec="built" title="Built"><span>04 · <span data-i18n="en">BUILT</span><span data-i18n="pt">CONSTRUÍDO</span><span data-i18n="es">CONSTRUIDO</span></span></a>
+  <a href="#credentials" data-sec="credentials" title="Credentials"><span>05 · <span data-i18n="en">CREDENTIALS</span><span data-i18n="pt">FORMAÇÃO</span><span data-i18n="es">FORMACIÓN</span></span></a>
+  <a href="#skills" data-sec="skills" title="Skills"><span>06 · <span data-i18n="en">SKILLS</span><span data-i18n="pt">HABILIDADES</span><span data-i18n="es">HABILIDADES</span></span></a>
+</nav>
+
 <div class="langbar">
   <div class="langbar-inner">
     <button class="langbtn" data-setlang="en">EN</button>
@@ -398,55 +484,60 @@
 </div>
 
 <!-- ============ HERO ============ -->
-<header class="hero">
+<header class="hero" id="hero">
   <div class="wrap">
-    <div class="ref">FILE / AG-001 — <span data-i18n="en">PROFESSIONAL PROFILE</span><span data-i18n="pt">PERFIL PROFISSIONAL</span><span data-i18n="es">PERFIL PROFESIONAL</span></div>
-    <h1>Alexandre Gabbia</h1>
-    <div class="role">
-      <span data-i18n="en">FINANCIAL CRIME &amp; AML ANALYST — FRAUD PREVENTION</span>
-      <span data-i18n="pt">ANALISTA DE PREVENÇÃO A FRAUDES &amp; AML/CFT</span>
-      <span data-i18n="es">ANALISTA DE PREVENCIÓN DE FRAUDE Y AML/CFT</span>
+    <div>
+      <div class="ref">FILE / AG-001 — <span data-i18n="en">PROFESSIONAL PROFILE</span><span data-i18n="pt">PERFIL PROFISSIONAL</span><span data-i18n="es">PERFIL PROFESIONAL</span></div>
+      <h1>Alexandre Gabbia</h1>
+      <div class="role">
+        <span data-i18n="en">FINANCIAL CRIME &amp; AML ANALYST — FRAUD PREVENTION</span>
+        <span data-i18n="pt">ANALISTA DE PREVENÇÃO A FRAUDES &amp; AML/CFT</span>
+        <span data-i18n="es">ANALISTA DE PREVENCIÓN DE FRAUDE Y AML/CFT</span>
+      </div>
+      <p class="lead">
+        <span data-i18n="en">Nine years turning transaction data into evidence. AML/CFT analyst at Nubank, formerly fraud prevention at Afinz — now looking to bring that casework to a financial crime team in Europe.</span>
+        <span data-i18n="pt">Nove anos transformando dado transacional em evidência. Analista de AML/CFT no Nubank, antes prevenção a fraudes na Afinz — buscando levar essa experiência para um time de financial crime na Europa.</span>
+        <span data-i18n="es">Nueve años convirtiendo datos transaccionales en evidencia. Analista de AML/CFT en Nubank, antes prevención de fraude en Afinz, buscando llevar esa experiencia a un equipo de financial crime en Europa.</span>
+      </p>
+      <div class="meta">
+        <a class="cta" href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          LinkedIn
+        </a>
+        <a class="cta email-cta" href="mailto:alexgabbia@gmail.com" data-email="alexgabbia@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+          <span class="email-label">alexgabbia@gmail.com</span>
+        </a>
+      </div>
+      <div class="meta" style="margin-top:12px;">
+        <span class="meta-note">
+          <span data-i18n="en">Based in Brazil — open to relocation</span>
+          <span data-i18n="pt">Baseado no Brasil — aberto a mudança de país</span>
+          <span data-i18n="es">Con base en Brasil — abierto a reubicación</span>
+        </span>
+      </div>
     </div>
-    <p class="lead">
-      <span data-i18n="en">Nine years turning transaction data into evidence. AML/CFT analyst at Nubank, formerly fraud prevention at Afinz — now looking to bring that casework to a financial crime team in Europe.</span>
-      <span data-i18n="pt">Nove anos transformando dado transacional em evidência. Analista de AML/CFT no Nubank, antes prevenção a fraudes na Afinz — buscando levar essa experiência para um time de financial crime na Europa.</span>
-      <span data-i18n="es">Nueve años convirtiendo datos transaccionales en evidencia. Analista de AML/CFT en Nubank, antes prevención de fraude en Afinz, buscando llevar esa experiencia a un equipo de financial crime en Europa.</span>
-    </p>
-    <div class="meta">
-      <a href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">linkedin.com/in/alexandregabbia</a>
-      <a href="mailto:alexgabbia@gmail.com">alexgabbia@gmail.com</a>
-      <span>
-        <span data-i18n="en">Based in Brazil — open to relocation</span>
-        <span data-i18n="pt">Baseado no Brasil — aberto a mudança de país</span>
-        <span data-i18n="es">Con base en Brasil — abierto a reubicación</span>
-      </span>
+
+    <div class="hero-radar">
+      <svg viewBox="0 0 220 220" width="200" height="200">
+        <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(95,227,232,0.18)"/>
+        <circle cx="110" cy="110" r="70" fill="none" stroke="rgba(95,227,232,0.18)"/>
+        <circle cx="110" cy="110" r="40" fill="none" stroke="rgba(95,227,232,0.18)"/>
+        <g class="sweep">
+          <path d="M110 110 L110 10 A100 100 0 0 1 183 45 Z" fill="rgba(95,227,232,0.16)"/>
+        </g>
+        <circle class="node" cx="150" cy="70" r="4" fill="#5FE3E8"/>
+        <circle class="node" cx="70" cy="150" r="4" fill="#C9A36A"/>
+        <circle class="node" cx="160" cy="150" r="4" fill="#5FE3E8"/>
+        <circle class="node" cx="75" cy="60" r="4" fill="#C9A36A"/>
+        <circle cx="110" cy="110" r="2.5" fill="#F7F5F0"/>
+      </svg>
     </div>
   </div>
 </header>
 
-<div class="quickstats">
-  <div class="qs-row">
-    <div class="qs-cell">
-      <div class="qs-num">~9</div>
-      <div class="qs-label"><span data-i18n="en">YEARS, FRAUD &amp; AML</span><span data-i18n="pt">ANOS, FRAUDE E AML</span><span data-i18n="es">AÑOS, FRAUDE Y AML</span></div>
-    </div>
-    <div class="qs-cell">
-      <div class="qs-num">5</div>
-      <div class="qs-label"><span data-i18n="en">LINKED FRAUDULENT ONBOARDINGS CAUGHT, ONE CASE</span><span data-i18n="pt">CADASTROS FRAUDULENTOS LIGADOS, UM CASO</span><span data-i18n="es">REGISTROS FRAUDULENTOS VINCULADOS, UN CASO</span></div>
-    </div>
-    <div class="qs-cell">
-      <div class="qs-num">83%</div>
-      <div class="qs-label"><span data-i18n="en">FASTER REGULATORY LOOKUP, TOOL BUILT IN-HOUSE</span><span data-i18n="pt">CONSULTA REGULATÓRIA MAIS RÁPIDA, FERRAMENTA PRÓPRIA</span><span data-i18n="es">CONSULTA REGULATORIA MÁS RÁPIDA, HERRAMIENTA PROPIA</span></div>
-    </div>
-    <div class="qs-cell">
-      <div class="qs-num">3</div>
-      <div class="qs-label"><span data-i18n="en">LANGUAGES, THIS PAGE</span><span data-i18n="pt">IDIOMAS, NESTA PÁGINA</span><span data-i18n="es">IDIOMAS, EN ESTA PÁGINA</span></div>
-    </div>
-  </div>
-</div>
-
 <!-- ============ ABOUT ============ -->
-<section class="border-t">
+<section class="border-t" id="about">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">01</span>
@@ -470,7 +561,7 @@
 </section>
 
 <!-- ============ TIMELINE ============ -->
-<section class="border-t">
+<section class="border-t" id="record">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">02</span>
@@ -514,16 +605,22 @@
           <span class="tagchip" data-i18n="es">Investigación con apoyo de IA</span>
         </div>
 
-        <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;max-width:58ch;">
-          <span data-i18n="en">Day to day: triage and investigate AML/Financial Crime alerts across typologies (high-value movement, third-party transactions, FATF-listed exposure, atypical product use), cross-reference OSINT with internal data to substantiate findings, and decide whether a case warrants reporting to COAF. I also write internal studies on financial crime typologies and build automation to cut manual work.</span>
-          <span data-i18n="pt">No dia a dia: triagem e investigação de alertas de AML/Financial Crime em várias tipologias (movimentação expressiva, transações com terceiros, exposição a países do GAFI, uso atípico de produto), cruzando OSINT com dado interno pra sustentar a conclusão, e decidindo se o caso precisa de reporte ao COAF. Também escrevo estudos internos sobre tipologias de crime financeiro e construo automação pra reduzir trabalho manual.</span>
-          <span data-i18n="es">En el día a día: triaje e investigación de alertas de AML/Financial Crime en varias tipologías (movimientos de alto valor, transacciones con terceros, exposición a países del GAFI, uso atípico de producto), cruzando OSINT con datos internos para sustentar la conclusión, y decidiendo si el caso amerita reporte al COAF. También escribo estudios internos sobre tipologías de crimen financiero y construyo automatización para reducir trabajo manual.</span>
-        </p>
+        <button class="job-toggle" type="button" data-toggle>
+          <span data-i18n="en">DETAILS</span><span data-i18n="pt">DETALHES</span><span data-i18n="es">DETALLES</span>
+          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+        <div class="job-more">
+          <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;max-width:58ch;">
+            <span data-i18n="en">Day to day: triage and investigate AML/Financial Crime alerts across typologies (high-value movement, third-party transactions, FATF-listed exposure, atypical product use), cross-reference OSINT with internal data to substantiate findings, and decide whether a case warrants reporting to COAF. I also write internal studies on financial crime typologies and build automation to cut manual work.</span>
+            <span data-i18n="pt">No dia a dia: triagem e investigação de alertas de AML/Financial Crime em várias tipologias (movimentação expressiva, transações com terceiros, exposição a países do GAFI, uso atípico de produto), cruzando OSINT com dado interno pra sustentar a conclusão, e decidindo se o caso precisa de reporte ao COAF. Também escrevo estudos internos sobre tipologias de crime financeiro e construo automação pra reduzir trabalho manual.</span>
+            <span data-i18n="es">En el día a día: triaje e investigación de alertas de AML/Financial Crime en varias tipologías (movimientos de alto valor, transacciones con terceros, exposición a países del GAFI, uso atípico de producto), cruzando OSINT con datos internos para sustentar la conclusión, y decidiendo si el caso amerita reporte al COAF. También escribo estudios internos sobre tipologías de crimen financiero y construyo automatización para reducir trabajo manual.</span>
+          </p>
 
-        <div class="highlight">
-          <span data-i18n="en"><b>Self-initiated:</b> NuConsultaBet, an AI-assisted regulatory lookup tool now used team-wide. Details in the Built section below.</span>
-          <span data-i18n="pt"><b>Iniciativa própria:</b> o NuConsultaBet, ferramenta de consulta regulatória com apoio de IA, hoje usada por todo o time. Detalhes na seção Construído, abaixo.</span>
-          <span data-i18n="es"><b>Iniciativa propia:</b> NuConsultaBet, herramienta de consulta regulatoria con apoyo de IA, hoy usada por todo el equipo. Detalles en la sección Construido, abajo.</span>
+          <div class="highlight">
+            <span data-i18n="en"><b>Self-initiated:</b> NuConsultaBet, an AI-assisted regulatory lookup tool now used team-wide. Details in the Built section below.</span>
+            <span data-i18n="pt"><b>Iniciativa própria:</b> o NuConsultaBet, ferramenta de consulta regulatória com apoio de IA, hoje usada por todo o time. Detalhes na seção Construído, abaixo.</span>
+            <span data-i18n="es"><b>Iniciativa propia:</b> NuConsultaBet, herramienta de consulta regulatoria con apoyo de IA, hoy usada por todo el equipo. Detalles en la sección Construido, abajo.</span>
+          </div>
         </div>
       </div>
     </div>
@@ -563,6 +660,11 @@
           <span class="tagchip">Python · SQL · Athena</span>
         </div>
 
+        <button class="job-toggle" type="button" data-toggle>
+          <span data-i18n="en">DETAILS</span><span data-i18n="pt">DETALHES</span><span data-i18n="es">DETALLES</span>
+          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+        <div class="job-more">
         <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;max-width:58ch;">
           <span data-i18n="en">Started validating credit documents and facial biometrics against early-onboarding fraud. Moved into investigating fraud, chargebacks and atypical transactional behavior, then took ownership of fraud monitoring and risk analysis for the merchant receivables-advance product, nationwide, end to end.</span>
           <span data-i18n="pt">Comecei validando documento de crédito e biometria facial contra fraude no onboarding. Passei a investigar fraude, chargeback e comportamento transacional atípico, até assumir o monitoramento de fraude e a análise de risco do produto de antecipação de recebíveis para lojistas, em todo o Brasil, de ponta a ponta.</span>
@@ -574,13 +676,14 @@
           <span data-i18n="pt"><b>Construí:</b> uma regra de aprovação automática baseada em risco para antecipação de recebíveis, substituindo um processo totalmente manual. Investiguei e formalizei casos de fraude em dossiês usados para ação jurídica. Detalhe do caso no dossiê abaixo.</span>
           <span data-i18n="es"><b>Construí:</b> una regla de aprobación automática basada en riesgo para adelantos de cuentas por cobrar, reemplazando un proceso totalmente manual. Investigué y formalicé casos de fraude en expedientes usados para acciones legales. Detalle del caso en el expediente abajo.</span>
         </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ CASE FILE ============ -->
-<section class="border-t">
+<section class="border-t" id="case">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">03</span>
@@ -687,7 +790,7 @@
 </section>
 
 <!-- ============ PROJECT ============ -->
-<section class="border-t">
+<section class="border-t" id="built">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">04</span>
@@ -757,7 +860,7 @@
 </section>
 
 <!-- ============ CREDENTIALS ============ -->
-<section class="border-t">
+<section class="border-t" id="credentials">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">05</span>
@@ -768,6 +871,7 @@
       </h2>
     </div>
 
+    <div class="credgrid">
     <div class="cred featured">
       <div class="cred-top">
         <h3>Digital Payments Catalyst</h3>
@@ -819,11 +923,12 @@
         <span data-i18n="es">Gestión empresarial, análisis de desempeño financiero, elaboración de planes de gestión y gestión de procesos organizacionales.</span>
       </p>
     </div>
+    </div>
   </div>
 </section>
 
 <!-- ============ SKILLS ============ -->
-<section class="border-t">
+<section class="border-t" id="skills">
   <div class="wrap">
     <div class="section-head">
       <span class="ref">06</span>
@@ -876,8 +981,14 @@
       <span data-i18n="es">Abierto a puestos de AML/CFT y prevención de fraude en Europa. Disponible para detallar cualquier caso de esta página.</span>
     </p>
     <div class="contact-links">
-      <a href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="mailto:alexgabbia@gmail.com">Email</a>
+      <a class="cta" href="https://linkedin.com/in/alexandregabbia" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        LinkedIn ↗
+      </a>
+      <a class="cta email-cta" href="mailto:alexgabbia@gmail.com" data-email="alexgabbia@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <span class="email-label">alexgabbia@gmail.com</span>
+      </a>
     </div>
     <div class="fineprint">FILE / AG-001 — © Alexandre Gabbia</div>
   </div>
@@ -902,6 +1013,72 @@
   var saved = 'en';
   try { saved = localStorage.getItem('ag_lang') || 'en'; } catch(e){}
   setLang(saved);
+
+  /* ---- hero mouse spotlight ---- */
+  var hero = document.getElementById('hero');
+  if (hero) {
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      var mx = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+      var my = ((e.clientY - r.top) / r.height * 100).toFixed(1);
+      hero.style.setProperty('--mx', mx + '%');
+      hero.style.setProperty('--my', my + '%');
+    });
+  }
+
+  /* ---- scroll progress bar ---- */
+  var progressEl = document.getElementById('progress');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    if (progressEl) progressEl.style.width = (scrolled || 0) + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---- sidenav active state via IntersectionObserver ---- */
+  var navLinks = document.querySelectorAll('.sidenav a');
+  var navSections = Array.prototype.map.call(navLinks, function(a){
+    return document.getElementById(a.getAttribute('data-sec'));
+  }).filter(Boolean);
+  function setActiveNav(id){
+    navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-sec') === id); });
+  }
+  if ('IntersectionObserver' in window && navSections.length) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) setActiveNav(en.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    navSections.forEach(function(s){ io.observe(s); });
+  }
+
+  /* ---- job accordion ---- */
+  document.querySelectorAll('[data-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.closest('.job').classList.toggle('open');
+    });
+  });
+
+  /* ---- copy email to clipboard ---- */
+  document.querySelectorAll('.email-cta').forEach(function(emailCta){
+    emailCta.addEventListener('click', function(e){
+      var addr = emailCta.getAttribute('data-email');
+      if (navigator.clipboard) {
+        e.preventDefault();
+        navigator.clipboard.writeText(addr).then(function(){
+          emailCta.classList.add('copied');
+          var label = emailCta.querySelector('.email-label') || emailCta;
+          var prev = label.textContent;
+          label.textContent = (document.documentElement.getAttribute('data-lang') === 'pt') ? 'Copiado!' : (document.documentElement.getAttribute('data-lang') === 'es') ? '¡Copiado!' : 'Copied!';
+          setTimeout(function(){
+            emailCta.classList.remove('copied');
+            label.textContent = prev;
+          }, 1800);
+        }).catch(function(){ window.location.href = 'mailto:' + addr; });
+      }
+    });
+  });
 </script>
 
 </body>
