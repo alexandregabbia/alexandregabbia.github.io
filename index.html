@@ -123,6 +123,37 @@
   .hero .meta a{text-decoration:underline; text-decoration-color:#52677D; transition:color .2s ease, text-decoration-color .2s ease;}
   .hero .meta a:hover{color:#C9A36A; text-decoration-color:#C9A36A;}
 
+  /* ---- quickstats ---- */
+  .quickstats{
+    background:var(--paper-dim);
+    border-bottom:1px solid var(--line);
+  }
+  .qs-row{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    max-width:var(--max); margin:0 auto;
+  }
+  .qs-cell{
+    padding:22px 16px;
+    text-align:center;
+    border-right:1px solid var(--line);
+  }
+  .qs-cell:last-child{border-right:none;}
+  .qs-num{
+    font-family:'Newsreader', serif;
+    font-size:28px;
+    color:var(--steel);
+  }
+  .qs-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--slate);
+    margin-top:4px;
+  }
+  @media (max-width:560px){
+    .qs-row{grid-template-columns:repeat(2,1fr);}
+    .qs-cell:nth-child(2){border-right:none;}
+  }
+
   /* ---- sections ---- */
   section{padding:56px 0;}
   section.border-t{border-top:1px solid var(--line);}
@@ -165,8 +196,38 @@
     color:var(--amber);
     margin-top:3px;
   }
-  .job ul{margin:12px 0 0; padding-left:18px; color:var(--ink-soft);}
-  .job li{margin-bottom:6px;}
+  .job .mission{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:16px;
+    color:var(--ink-soft);
+    margin-top:10px;
+    max-width:56ch;
+  }
+  .steps{
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+    margin-top:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--slate);
+  }
+  .steps .arrow{color:var(--line);}
+  .tagrow{display:flex; flex-wrap:wrap; gap:7px; margin-top:14px;}
+  .tagchip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--steel-deep);
+    background:#EAF0F4;
+    border:1px solid var(--line);
+    padding:4px 9px;
+    border-radius:2px;
+  }
+  .highlight{
+    margin-top:14px; padding:10px 14px;
+    border-left:2px solid var(--amber);
+    background:rgba(194,121,31,0.05);
+    font-size:14px; color:var(--ink-soft);
+  }
+  .highlight b{color:var(--ink); font-weight:600;}
 
   /* ---- case file ---- */
   .casefile{
@@ -363,6 +424,27 @@
   </div>
 </header>
 
+<div class="quickstats">
+  <div class="qs-row">
+    <div class="qs-cell">
+      <div class="qs-num">~9</div>
+      <div class="qs-label"><span data-i18n="en">YEARS, FRAUD &amp; AML</span><span data-i18n="pt">ANOS, FRAUDE E AML</span><span data-i18n="es">AÑOS, FRAUDE Y AML</span></div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-num">5</div>
+      <div class="qs-label"><span data-i18n="en">LINKED FRAUDULENT ONBOARDINGS CAUGHT, ONE CASE</span><span data-i18n="pt">CADASTROS FRAUDULENTOS LIGADOS, UM CASO</span><span data-i18n="es">REGISTROS FRAUDULENTOS VINCULADOS, UN CASO</span></div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-num">83%</div>
+      <div class="qs-label"><span data-i18n="en">FASTER REGULATORY LOOKUP, TOOL BUILT IN-HOUSE</span><span data-i18n="pt">CONSULTA REGULATÓRIA MAIS RÁPIDA, FERRAMENTA PRÓPRIA</span><span data-i18n="es">CONSULTA REGULATORIA MÁS RÁPIDA, HERRAMIENTA PROPIA</span></div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-num">3</div>
+      <div class="qs-label"><span data-i18n="en">LANGUAGES, THIS PAGE</span><span data-i18n="pt">IDIOMAS, NESTA PÁGINA</span><span data-i18n="es">IDIOMAS, EN ESTA PÁGINA</span></div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ ABOUT ============ -->
 <section class="border-t">
   <div class="wrap">
@@ -405,47 +487,93 @@
       <time data-i18n="es">MAYO 2025 — ACTUAL</time>
       <div>
         <h3>
-          <span data-i18n="en">AML/CFT Analyst</span>
-          <span data-i18n="pt">Analista de AML/CFT</span>
-          <span data-i18n="es">Analista de AML/CFT</span>
+          <span data-i18n="en">Regulatory Solutions Analyst — AML (Mid-level)</span>
+          <span data-i18n="pt">Analista de Soluções Regulatórias — AML (Pleno)</span>
+          <span data-i18n="es">Analista de Soluciones Regulatorias — AML (Pleno)</span>
         </h3>
-        <div class="org">Nubank</div>
-        <ul>
-          <li data-i18n="en">Review AML alerts: high-value movement, third-party concentration, FATF-listed exposure, gift-card misuse.</li>
-          <li data-i18n="en">Designed and built an internal regulatory-lookup tool (now v2) that checks licensed betting operators, regulated payment institutions and the FATF list in one place, refreshed daily; cut average lookup time by ~83%.</li>
-          <li data-i18n="pt">Análise de alertas de AML: movimentações expressivas, concentração com terceiros, exposição a países listados pelo GAFI, uso indevido de gift card.</li>
-          <li data-i18n="pt">Idealizei e construí uma ferramenta interna de consulta regulatória (hoje na v2) que verifica casas de apostas regulamentadas, instituições de pagamento regulamentadas e a lista do GAFI em um só lugar, atualizada diariamente; reduziu ~83% o tempo médio de consulta.</li>
-          <li data-i18n="es">Análisis de alertas de AML: movimientos de alto valor, concentración con terceros, exposición a países listados por el GAFI, uso indebido de tarjetas regalo.</li>
-          <li data-i18n="es">Diseñé y construí una herramienta interna de consulta regulatoria (hoy en v2) que verifica casas de apuestas reguladas, instituciones de pago reguladas y la lista del GAFI en un solo lugar, actualizada a diario; redujo ~83% el tiempo medio de consulta.</li>
-        </ul>
+        <div class="org">Nubank — São Paulo, Hybrid</div>
+
+        <p class="mission">
+          <span data-i18n="en">Where a flag becomes either a cleared account or a report to the regulator.</span>
+          <span data-i18n="pt">Onde um alerta vira conta liberada ou reporte ao regulador.</span>
+          <span data-i18n="es">Donde una alerta se convierte en cuenta liberada o reporte al regulador.</span>
+        </p>
+
+        <div class="tagrow">
+          <span class="tagchip">CDD / EDD</span>
+          <span class="tagchip">OSINT</span>
+          <span class="tagchip" data-i18n="en">Transaction Monitoring</span>
+          <span class="tagchip" data-i18n="pt">Monitoramento de Transações</span>
+          <span class="tagchip" data-i18n="es">Monitoreo de Transacciones</span>
+          <span class="tagchip">COAF</span>
+          <span class="tagchip" data-i18n="en">PF &amp; PJ, domestic &amp; cross-border</span>
+          <span class="tagchip" data-i18n="pt">PF e PJ, nacional e internacional</span>
+          <span class="tagchip" data-i18n="es">PF y PJ, nacional e internacional</span>
+          <span class="tagchip" data-i18n="en">AI-assisted investigation</span>
+          <span class="tagchip" data-i18n="pt">Investigação com apoio de IA</span>
+          <span class="tagchip" data-i18n="es">Investigación con apoyo de IA</span>
+        </div>
+
+        <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;max-width:58ch;">
+          <span data-i18n="en">Day to day: triage and investigate AML/Financial Crime alerts across typologies (high-value movement, third-party transactions, FATF-listed exposure, atypical product use), cross-reference OSINT with internal data to substantiate findings, and decide whether a case warrants reporting to COAF. I also write internal studies on financial crime typologies and build automation to cut manual work.</span>
+          <span data-i18n="pt">No dia a dia: triagem e investigação de alertas de AML/Financial Crime em várias tipologias (movimentação expressiva, transações com terceiros, exposição a países do GAFI, uso atípico de produto), cruzando OSINT com dado interno pra sustentar a conclusão, e decidindo se o caso precisa de reporte ao COAF. Também escrevo estudos internos sobre tipologias de crime financeiro e construo automação pra reduzir trabalho manual.</span>
+          <span data-i18n="es">En el día a día: triaje e investigación de alertas de AML/Financial Crime en varias tipologías (movimientos de alto valor, transacciones con terceros, exposición a países del GAFI, uso atípico de producto), cruzando OSINT con datos internos para sustentar la conclusión, y decidiendo si el caso amerita reporte al COAF. También escribo estudios internos sobre tipologías de crimen financiero y construyo automatización para reducir trabajo manual.</span>
+        </p>
+
+        <div class="highlight">
+          <span data-i18n="en"><b>Self-initiated:</b> NuConsultaBet, an AI-assisted regulatory lookup tool now used team-wide. Details in the Built section below.</span>
+          <span data-i18n="pt"><b>Iniciativa própria:</b> o NuConsultaBet, ferramenta de consulta regulatória com apoio de IA, hoje usada por todo o time. Detalhes na seção Construído, abaixo.</span>
+          <span data-i18n="es"><b>Iniciativa propia:</b> NuConsultaBet, herramienta de consulta regulatoria con apoyo de IA, hoy usada por todo el equipo. Detalles en la sección Construido, abajo.</span>
+        </div>
       </div>
     </div>
 
     <div class="job">
-      <time data-i18n="en">2017 — 2025 (~7Y10M)</time>
-      <time data-i18n="pt">2017 — 2025 (~7A10M)</time>
-      <time data-i18n="es">2017 — 2025 (~7A10M)</time>
+      <time data-i18n="en">AUG 2017 — MAY 2025 (~7Y9M)</time>
+      <time data-i18n="pt">AGO 2017 — MAI 2025 (~7A9M)</time>
+      <time data-i18n="es">AGO 2017 — MAY 2025 (~7A9M)</time>
       <div>
         <h3>
-          <span data-i18n="en">Fraud Prevention Analyst (Jr. → Mid)</span>
-          <span data-i18n="pt">Analista de Prevenção a Fraude (Jr. → Pleno)</span>
-          <span data-i18n="es">Analista de Prevención de Fraude (Jr. → Pleno)</span>
+          <span data-i18n="en">Fraud Prevention Analyst</span>
+          <span data-i18n="pt">Analista de Prevenção a Fraude</span>
+          <span data-i18n="es">Analista de Prevención de Fraude</span>
         </h3>
-        <div class="org">Afinz</div>
-        <ul>
-          <li data-i18n="en">Progressed from credit-onboarding review to fraud investigation to owning fraud monitoring for the merchant receivables-advance product.</li>
-          <li data-i18n="en">Investigated onboarding and document fraud using document forensics; cases I built were formalized into case files used for legal action.</li>
-          <li data-i18n="en">Proposed and shipped a risk-based auto-approval rule for receivables advances, replacing a fully manual process and cutting review volume without raising default risk.</li>
-          <li data-i18n="en">Used Python/SQL to pull and rank portfolio data for ad-hoc risk studies; supported legal team with evidence review on client disputes.</li>
-          <li data-i18n="pt">Evoluí de análise de onboarding de crédito para investigação de fraude até assumir o monitoramento de fraude do produto de antecipação de recebíveis para lojistas.</li>
-          <li data-i18n="pt">Investiguei fraudes de onboarding e documentação usando documentoscopia; casos que montei viraram dossiês usados para ação jurídica.</li>
-          <li data-i18n="pt">Propus e implementei uma regra de aprovação automática baseada em risco para antecipação de recebíveis, substituindo um processo totalmente manual e reduzindo volume de análise sem elevar o risco de inadimplência.</li>
-          <li data-i18n="pt">Usei Python/SQL para extrair e ranquear dados de carteira em estudos de risco pontuais; apoiei o jurídico na análise de evidências em disputas de clientes.</li>
-          <li data-i18n="es">Evolucioné desde el análisis de onboarding de crédito hasta la investigación de fraude y luego asumí el monitoreo de fraude del producto de adelanto de cuentas por cobrar para comercios.</li>
-          <li data-i18n="es">Investigué fraudes de onboarding y documentación mediante documentoscopia; casos que armé se convirtieron en expedientes usados para acciones legales.</li>
-          <li data-i18n="es">Propuse e implementé una regla de aprobación automática basada en riesgo para adelantos de cuentas por cobrar, reemplazando un proceso totalmente manual y reduciendo el volumen de revisión sin elevar el riesgo de incumplimiento.</li>
-          <li data-i18n="es">Usé Python/SQL para extraer y clasificar datos de cartera en estudios de riesgo puntuales; apoyé al equipo legal en la revisión de evidencia en disputas de clientes.</li>
-        </ul>
+        <div class="org">Afinz — Sorocaba, Hybrid</div>
+
+        <div class="steps">
+          <span data-i18n="en">Credit Granting Assistant</span><span data-i18n="pt">Assistente de Concessão de Crédito</span><span data-i18n="es">Asistente de Concesión de Crédito</span>
+          <span class="arrow">→</span>
+          <span data-i18n="en">Jr. Fraud Prevention Analyst</span><span data-i18n="pt">Analista de Prevenção a Fraude Jr.</span><span data-i18n="es">Analista de Prevención de Fraude Jr.</span>
+          <span class="arrow">→</span>
+          <span data-i18n="en">Mid-Level</span><span data-i18n="pt">Pleno</span><span data-i18n="es">Pleno</span>
+        </div>
+
+        <p class="mission">
+          <span data-i18n="en">Eight years inside the full customer lifecycle, watching for the moment something stops adding up.</span>
+          <span data-i18n="pt">Oito anos dentro do ciclo completo do cliente, de olho no momento em que algo para de fazer sentido.</span>
+          <span data-i18n="es">Ocho años dentro del ciclo completo del cliente, atento al momento en que algo deja de tener sentido.</span>
+        </p>
+
+        <div class="tagrow">
+          <span class="tagchip" data-i18n="en">Document Forensics</span><span class="tagchip" data-i18n="pt">Documentoscopia</span><span class="tagchip" data-i18n="es">Documentoscopia</span>
+          <span class="tagchip" data-i18n="en">Receivables Advance Risk</span><span class="tagchip" data-i18n="pt">Risco em Antecipação de Recebíveis</span><span class="tagchip" data-i18n="es">Riesgo en Adelanto de Cuentas por Cobrar</span>
+          <span class="tagchip" data-i18n="en">Merchant Onboarding</span><span class="tagchip" data-i18n="pt">Onboarding de Lojistas</span><span class="tagchip" data-i18n="es">Onboarding de Comercios</span>
+          <span class="tagchip" data-i18n="en">Chargeback Analysis</span><span class="tagchip" data-i18n="pt">Análise de Chargeback</span><span class="tagchip" data-i18n="es">Análisis de Chargeback</span>
+          <span class="tagchip">KYC / AML</span>
+          <span class="tagchip">Python · SQL · Athena</span>
+        </div>
+
+        <p style="margin-top:14px;color:var(--ink-soft);font-size:14.5px;max-width:58ch;">
+          <span data-i18n="en">Started validating credit documents and facial biometrics against early-onboarding fraud. Moved into investigating fraud, chargebacks and atypical transactional behavior, then took ownership of fraud monitoring and risk analysis for the merchant receivables-advance product, nationwide, end to end.</span>
+          <span data-i18n="pt">Comecei validando documento de crédito e biometria facial contra fraude no onboarding. Passei a investigar fraude, chargeback e comportamento transacional atípico, até assumir o monitoramento de fraude e a análise de risco do produto de antecipação de recebíveis para lojistas, em todo o Brasil, de ponta a ponta.</span>
+          <span data-i18n="es">Empecé validando documentos de crédito y biometría facial contra fraude en el onboarding. Pasé a investigar fraude, chargeback y comportamiento transaccional atípico, hasta asumir el monitoreo de fraude y el análisis de riesgo del producto de adelanto de cuentas por cobrar para comercios, en todo Brasil, de punta a punta.</span>
+        </p>
+
+        <div class="highlight">
+          <span data-i18n="en"><b>Built:</b> a risk-based auto-approval rule for receivables advances, replacing a fully manual process. Investigated and formalized fraud cases into dossiers used for legal action. Case detail in the file below.</span>
+          <span data-i18n="pt"><b>Construí:</b> uma regra de aprovação automática baseada em risco para antecipação de recebíveis, substituindo um processo totalmente manual. Investiguei e formalizei casos de fraude em dossiês usados para ação jurídica. Detalhe do caso no dossiê abaixo.</span>
+          <span data-i18n="es"><b>Construí:</b> una regla de aprobación automática basada en riesgo para adelantos de cuentas por cobrar, reemplazando un proceso totalmente manual. Investigué y formalicé casos de fraude en expedientes usados para acciones legales. Detalle del caso en el expediente abajo.</span>
+        </div>
       </div>
     </div>
   </div>
